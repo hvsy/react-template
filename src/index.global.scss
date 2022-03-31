@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+  @apply antialiased;
+}
+#root{
+  @apply w-screen;
+  @apply h-screen;
+  @apply overflow-hidden;
+  @apply flex;
+  @apply flex-col;
+  @apply items-stretch;
+  @apply bg-gray-100;
+}
+
+
+
+@import "~antd/dist/antd.css";

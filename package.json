@@ -1,0 +1,53 @@
+{
+  "name": "@hvsy/react-template",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack serve --hot",
+    "build": "NODE_ENV=production webpack"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@swc/core": "^1.2.161",
+    "@tailwindcss/forms": "^0.5.0",
+    "@types/lodash": "^4.14.181",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "antd": "^4.19.5-alpha.0",
+    "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
+    "immer": "^9.0.12",
+    "lodash": "^4.17.21",
+    "nanoid": "^3.3.2",
+    "react": "18",
+    "react-dom": "18",
+    "react-refresh": "^0.12.0",
+    "react-router-dom": "6",
+    "sass": "^1.49.9",
+    "swc-loader": "^0.1.15",
+    "swr": "^1.2.2",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.6.3",
+    "use-immer": "^0.6.0",
+    "webpack": "^5.70.0",
+    "zustand": "^3.7.1"
+  },
+  "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "https://github.com/pmmmwh/react-refresh-webpack-plugin",
+    "autoprefixer": "^10.4.4",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "dotenv-webpack": "^7.1.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "less-loader": "^10.2.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "postcss": "^8.4.12",
+    "postcss-loader": "^6.2.1",
+    "resolve-url-loader": "^5.0.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4",
+    "webpack-hot-middleware": "^2.25.1"
+  }
+}
