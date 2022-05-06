@@ -4,6 +4,7 @@ const webpack = require("webpack");
 const Refresh = require('@pmmmwh/react-refresh-webpack-plugin');
 const isDev = process.env.NODE_ENV !== 'production';
 const Dotenv = require('dotenv-webpack');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 const PostLoader = ({
     loader: require.resolve('postcss-loader'),
@@ -259,6 +260,7 @@ const config = {
         historyApiFallback: true,
     },
     plugins: [
+        new AntdDayjsWebpackPlugin(),
         isDev ? new Refresh({
             overlay: {
                 sockIntegration: 'whm',

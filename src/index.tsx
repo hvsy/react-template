@@ -6,6 +6,9 @@ import {BrowserRouter,} from "react-router-dom";
 import {SWRConfig} from "swr";
 import {App} from "./core/App";
 import {api} from "./lib/api";
+import dayjs from "dayjs";
+import 'dayjs/locale/zh-cn'
+dayjs.locale('zh-cn')
 
 function getRoot(){
     let root = document.getElementById('root');
