@@ -5,6 +5,7 @@ import {BrowserRouter,} from "react-router-dom";
 
 import {SWRConfig} from "swr";
 import {App} from "./App";
+import {api} from "./lib/api";
 
 function getRoot(){
     let root = document.getElementById('root');
@@ -24,6 +25,14 @@ function render(which : React.ReactChild){
 render(
     <BrowserRouter>
         <SWRConfig value={{
+            fetcher: api,
+            revalidateIfStale: false,
+            refreshWhenHidden: false,
+            revalidateOnFocus: false,
+            shouldRetryOnError: false,
+            refreshWhenOffline: false,
+            revalidateOnReconnect: false,
+            revalidateOnMount: true,
         }}>
                 <App />
         </SWRConfig>
