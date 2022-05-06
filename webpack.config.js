@@ -250,6 +250,7 @@ const config = {
         extensions: [ '.tsx', '.ts', '.jsx', '.js', '.json', '.wasm' ],
     },
     devServer: {
+        allowedHosts: 'all',
         hot: true,
         port : 3000,
         historyApiFallback: true,
