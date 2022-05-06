@@ -248,6 +248,9 @@ const config = {
     target: "web",
     resolve: {
         extensions: [ '.tsx', '.ts', '.jsx', '.js', '.json', '.wasm' ],
+        alias: {
+            '@' : path.resolve(__dirname, 'src'),
+        },
     },
     devServer: {
         allowedHosts: 'all',
