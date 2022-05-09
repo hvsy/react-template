@@ -17,11 +17,10 @@ const pageBuilder = new ModuleTreeBuilder(/^[^/]+.tsx$/ig,/\/?pages\/|\/modules\
     }
 });
 const AppRootModule = pageBuilder.parse(pages.keys());
-const layoutBuilder = new ModuleTreeBuilder(/^layout.tsx$/ig,/\/config\/|\/modules\//i,(tree,{key,path})=>{
+const layoutBuilder = new ModuleTreeBuilder(/^layout.tsx$/ig,/\/?config\/|\/modules\//i,(tree,{key,path})=>{
     tree.data.layout = key;
 });
 layoutBuilder.parse(layouts.keys(),AppRootModule);
-console.log(AppRootModule);
 
 export const AppModuleConfig = {
     module : AppRootModule,
