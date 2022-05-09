@@ -42,6 +42,7 @@ const config = {
     output: {
         path: path.resolve(__dirname, `public/${process.env.APP_NAME}/`),
         filename: `[name].[hash].js`,
+        publicPath: "/",
     },
     optimization: {
         minimize: true,
