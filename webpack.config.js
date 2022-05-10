@@ -270,6 +270,7 @@ const config = {
         // new ForkTsCheckerWebpackPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
+            'process.env.MODULE_MODE': `"${process.env.NODE_ENV === 'development' ?'sync' :'lazy'}"`,
         }),
         !isDev ? new MiniCssExtractPlugin({
             filename : '[name].[hash].css',

@@ -1,9 +1,10 @@
 import {TreeBuilder} from "@/core/TreeBuilder";
 import {Module} from "@/core/Module";
 
-const layouts= require.context('@/' + process.env.PAGES_ROOT!,true,/config\/layout.tsx$/,'lazy');
-const pages = require.context('@/' + process.env.PAGES_ROOT!,true,/pages\/([^/]+).tsx$/,'lazy');
-
+//@ts-ignore
+const layouts= require.context('@/' + process.env.PAGES_ROOT!,true,/config\/layout.tsx$/,process.env.MODULE_MODE);
+//@ts-ignore
+const pages = require.context('@/' + process.env.PAGES_ROOT!,true,/pages\/([^/]+).tsx$/,process.env.MODULE_MODE);
 
 const ModuleTreeBuilder = TreeBuilder(Module);
 const pageBuilder = new ModuleTreeBuilder(/^[^/]+.tsx$/ig,/\/?pages\/|\/modules\//i,(tree, {key,path}) => {
