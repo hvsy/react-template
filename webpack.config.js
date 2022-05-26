@@ -53,6 +53,7 @@ const config = {
         ],
     },
     module: {
+        unknownContextCritical : false,
         rules: [
             {
                 test: /\.global\.css$/,
@@ -284,6 +285,7 @@ const config = {
             filename: "index.html",
         }),
     ].filter(Boolean),
+    
 };
 
 module.exports = config;

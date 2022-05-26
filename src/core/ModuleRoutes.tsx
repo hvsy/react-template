@@ -27,10 +27,26 @@ function renderModule(module : Tree<Module>,path: string,loader : ModuleLoader){
         })}
     </Route>;
 }
+function renderModuleDev(module : Tree<Module>,path: string,loader : ModuleLoader){
+    const {data : {pages,layout,index},children,} = module;
+    const Layout = layout ? loader.layout(layout).default : undefined;
+    const IndexComponent = index ? loader.page(index).default : null;
+    return <Route path={path} key={path} element={Layout ? <Layout/> : undefined}>
+        {IndexComponent && <Route key={'index'} index element={<IndexComponent />} />}
+        {(children).map((child) => {
+            return (renderModuleDev(child,child.key+ '/',loader));
+        })}
+        {pages.map(({path : pagePath,file}) => {
+            const Component= loader.page(file).default;
+            return (<Route key={pagePath} path={pagePath.replace('.','/')} element={<Component />}/>);
+        })}
+    </Route>;
+}
 
+const isDev = process.env.NODE_ENV === 'development';
 export const ModuleRoutes : FC<ModuleRoutesProps> = (props)=>{
     const {module,path,loader} = props;
     return <Routes>
-        {renderModule(module,path,loader)}
+        {isDev ? renderModuleDev(module,path,loader): renderModule(module,path,loader)}
     </Routes>;
 }

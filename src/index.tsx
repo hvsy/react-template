@@ -24,20 +24,30 @@ function getRoot(){
 function render(which : React.ReactChild){
     ReactDOM.createRoot(getRoot()).render(which);
 }
+function main(){
+    render(
+            <BrowserRouter>
+                <SWRConfig value={{
+                    fetcher: api,
+                    revalidateIfStale: false,
+                    refreshWhenHidden: false,
+                    revalidateOnFocus: false,
+                    shouldRetryOnError: false,
+                    refreshWhenOffline: false,
+                    revalidateOnReconnect: false,
+                    revalidateOnMount: true,
+                }}>
+                    <App />
+                </SWRConfig>
+            </BrowserRouter>
+    );
+}
 
-render(
-    <BrowserRouter>
-        <SWRConfig value={{
-            fetcher: api,
-            revalidateIfStale: false,
-            refreshWhenHidden: false,
-            revalidateOnFocus: false,
-            shouldRetryOnError: false,
-            refreshWhenOffline: false,
-            revalidateOnReconnect: false,
-            revalidateOnMount: true,
-        }}>
-                <App />
-        </SWRConfig>
-    </BrowserRouter>
-);
+if(process.env.NODE_ENV === 'development'){
+    import('./mocks/browser').then((m) => {
+        m.worker.start();
+        main();
+    });
+}else{
+    main();
+}
