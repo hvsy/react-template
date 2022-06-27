@@ -8,7 +8,7 @@ import {Token} from "@/lib/token";
 import {ItemType} from "antd/es/menu/hooks/useItems";
 
 export type CurrentUserProps = {
-    renderName : (user : User)=> React.ReactNode;
+    renderName ?: (user : User)=> React.ReactNode;
     menus ?: ItemType[];
 };
 
