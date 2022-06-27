@@ -8,7 +8,7 @@ export const AxiosInstance = axios.create({
         'X-Requested-With': 'XMLHttpRequest',
         'Accept' : 'application/json',
     },
-    withCredentials: true,
+    withCredentials: false,
 });
 AxiosInstance.interceptors.request.use((config) => {
     const token = Token.get();
@@ -19,12 +19,14 @@ AxiosInstance.interceptors.request.use((config) => {
 });
 AxiosInstance.interceptors.response.use(r=>r, (error) => {
     const statusCode = _.get(error,'response.status');
-    if(statusCode === 401){
+    if(!statusCode && _.get(error,'message') === 'Network Error'){
+        console.error('无法访问:',error.config.baseURL + error.config.url);
+    }else if(statusCode === 401){
         Token.remove();
     }
     return Promise.reject(error);
 });
-export function api<T>(config : AxiosRequestConfig){
+export function api<T>(config : AxiosRequestConfig & {authRedirect ?: boolean}){
     return AxiosInstance.request<T>(config).then(r=>r.data);
 }
 
