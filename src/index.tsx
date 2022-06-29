@@ -6,6 +6,8 @@ import {BrowserRouter,} from "react-router-dom";
 import {SWRConfig} from "swr";
 import {App} from "./core/App";
 import {api} from "./lib/api";
+import zhCN from 'antd/lib/locale/zh_CN';
+import {ConfigProvider} from "antd";
 import dayjs from "dayjs";
 import 'dayjs/locale/zh-cn'
 dayjs.locale('zh-cn')
@@ -37,7 +39,9 @@ function main(){
                     revalidateOnReconnect: false,
                     revalidateOnMount: true,
                 }}>
-                    <App />
+                    <ConfigProvider locale={zhCN}>
+                        <App/>
+                    </ConfigProvider>
                 </SWRConfig>
             </BrowserRouter>
     );
