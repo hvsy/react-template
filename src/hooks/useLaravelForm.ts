@@ -2,6 +2,7 @@ import {Form, FormInstance} from "antd";
 import {useCallback, useRef, useState} from "react";
 import _ from "lodash";
 
+
 export type LaravelFormSubmit = (values: any) => Promise<any>;
 export function useLaravelForm(callback: LaravelFormSubmit,formInstance ?: FormInstance){
     const [submitting,setSubmitting] = useState(false);
@@ -9,8 +10,9 @@ export function useLaravelForm(callback: LaravelFormSubmit,formInstance ?: FormI
     const [ formError, setFormError ] = useState<any>({});
     const formErrorRef = useRef();
     formErrorRef.current = formError;
-    const error = useCallback((name: string) => {
-        const errors = formErrorRef.current?.[name];
+    const error = useCallback((name: string|((string|number)[])) => {
+        const path = _.isArray(name) ? name.join('.') : name;
+        const errors = _.get(formErrorRef.current,path);
         if(errors){
             return {
                 validateStatus: 'error' as ("" | "error" | "success" | "warning" | "validating" | undefined),
@@ -31,7 +33,7 @@ export function useLaravelForm(callback: LaravelFormSubmit,formInstance ?: FormI
         setFormError({});
     };
     return [form,{
-        field(name : string){
+        field(name : string|((string|number)[])){
             return {
                 name,
                 ...error(name),
@@ -65,9 +67,7 @@ export function useLaravelForm(callback: LaravelFormSubmit,formInstance ?: FormI
                 //     method : 'get',
                 //     url : 'sanctum/csrf-cookie',
                 // });
-                const result = await callback(values);
-                reset();
-                return result;
+                return await callback(values);
             }catch(e){
                 const status = _.get(e, 'response.status');
                 if(status === 422){
