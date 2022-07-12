@@ -41,3 +41,53 @@ button.ant-switch{
 button.ant-switch-checked{
   background : #1890ff;
 }
+
+
+.ant-modal-wrap{
+  display:flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  .ant-modal{
+    top:0;
+    padding:0;
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+    &::before{
+      display:block;
+      content:' ';
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+    &::after{
+      display:block;
+      content:' ';
+      flex-grow: 2;
+      flex-shrink: 2;
+    }
+    .ant-modal-content{
+      .ant-modal-close-x{
+        width:32px;
+        height:32px;
+        line-height: 32px;
+      }
+      max-height: 100%;
+      flex-grow:0;
+      flex-shrink: 0;
+      display:flex;
+      flex-direction: column;
+      overflow: hidden;
+      .ant-modal-body{
+        flex:1;
+        padding:12px;
+        overflow-y: auto;
+      }
+      .ant-modal-footer{
+        flex-shrink: 0;
+      }
+    }
+  }
+}
