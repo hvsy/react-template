@@ -27,14 +27,14 @@ function renderModule(module : Tree<Module>,path: string,loader : ModuleLoader){
         })}
     </Route>;
 }
-function renderModuleDev(module : Tree<Module>,path: string,loader : ModuleLoader){
+function renderModuleSync(module : Tree<Module>,path: string,loader : ModuleLoader){
     const {data : {pages,layout,index},children,} = module;
     const Layout = layout ? loader.layout(layout).default : undefined;
     const IndexComponent = index ? loader.page(index).default : null;
     return <Route path={path} key={path} element={Layout ? <Layout/> : undefined}>
         {IndexComponent && <Route key={'index'} index element={<IndexComponent />} />}
         {(children).map((child) => {
-            return (renderModuleDev(child,child.key+ '/',loader));
+            return (renderModuleSync(child,child.key+ '/',loader));
         })}
         {pages.map(({path : pagePath,file}) => {
             const Component= loader.page(file).default;
@@ -43,10 +43,10 @@ function renderModuleDev(module : Tree<Module>,path: string,loader : ModuleLoade
     </Route>;
 }
 
-const isDev = process.env.NODE_ENV === 'development';
+const isLazy = process.env.MODULE_MODE === 'lazy';
 export const ModuleRoutes : FC<ModuleRoutesProps> = (props)=>{
     const {module,path,loader} = props;
     return <Routes>
-        {isDev ? renderModuleDev(module,path,loader): renderModule(module,path,loader)}
+        {isLazy ?  renderModule(module,path,loader) : renderModuleSync(module,path,loader)}
     </Routes>;
-}
+};
