@@ -40,9 +40,9 @@ const config = {
         ],
     },
     output: {
-        path: path.resolve(__dirname, `public/${process.env.APP_NAME}/`),
+        path: isDev ? path.resolve(__dirname, `public/${process.env.APP_NAME}/`) : path.resolve(__dirname,`../public/${process.env.APP_NAME}/`),
         filename: `[name].[hash].js`,
-        publicPath: "/",
+        publicPath: isDev ? "/" : `/${process.env.APP_NAME}/`,
     },
     optimization: {
         minimize: true,
@@ -87,7 +87,7 @@ const config = {
                             modules: cssModules,
                         },
                     }, PostLoader,
-                
+
                 ],
             }, {
                 test: /^((?!\.global).)*\.css$/,
@@ -242,7 +242,7 @@ const config = {
                                 },
                             },
                         },
-                        
+
                     },
                 ],
             },
@@ -260,6 +260,18 @@ const config = {
         hot: true,
         port : 3000,
         historyApiFallback: true,
+        proxy: process.env.API_PROXY ? {
+            '/api': {
+                target: `${process.env.API_PROXY}`,
+                pathRewrite: {
+                    '^/api': '/api'
+                },
+                changeOrigin: true,
+                // bypass: function (req, res, proxyOptions) {
+                //     console.log(req,res,proxyOptions);
+                // },
+            },
+        } : {},
     },
     plugins: [
         new AntdDayjsWebpackPlugin(),
@@ -272,6 +284,7 @@ const config = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
             'process.env.MODULE_MODE': `"${process.env.NODE_ENV === 'development' ?'sync' :'lazy'}"`,
+            // 'process.env.MODULE_MODE': `'lazy'`,
         }),
         !isDev ? new MiniCssExtractPlugin({
             filename : '[name].[hash].css',
@@ -280,12 +293,22 @@ const config = {
             path : EnvFile,
         }),
         new CleanWebpackPlugin({}),
-        new HtmlWebpackPlugin({
+        new HtmlWebpackPlugin(isDev ? {
             title : process.env.APP_NAME,
             filename: "index.html",
+            meta : {
+                'viewport' : "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+            }
+        }:{
+            title : process.env.APP_NAME,
+            filename: "index.html",
+            base : '/',
+            meta : {
+                'viewport' : "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+            }
         }),
     ].filter(Boolean),
-    
+
 };
 
 module.exports = config;
