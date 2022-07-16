@@ -4,8 +4,8 @@ import {api} from "@/lib/api";
 import {getDeviceId} from "@/lib/DeviceId";
 import {Token} from "@/lib/token";
 import {Link, useNavigate} from "react-router-dom";
-import {AsyncButton} from "../form/AsyncButton";
-import {PasswordInput} from "../form/PasswordInput";
+import {AsyncButton} from "../../form/AsyncButton";
+import {PasswordInput} from "../../form/PasswordInput";
 import {useLaravelForm} from "@/hooks/useLaravelForm";
 import {FC, ReactNode} from "react";
 

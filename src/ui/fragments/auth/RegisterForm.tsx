@@ -1,11 +1,11 @@
 import {Checkbox, Form, FormInstance, Input} from "antd";
 import {GiftOutlined, MobileOutlined,} from "@ant-design/icons";
-import {AsyncButton} from "../form/AsyncButton";
+import {AsyncButton} from "../../form/AsyncButton";
 import {api} from "@/lib/api";
 import {getDeviceId} from "@/lib/DeviceId";
 import {Token} from "@/lib/token";
 import {useNavigate} from "react-router-dom";
-import {PasswordInput} from "../form/PasswordInput";
+import {PasswordInput} from "../../form/PasswordInput";
 import {useLaravelForm} from "@/hooks/useLaravelForm";
 import {FC, ReactNode} from "react";
 

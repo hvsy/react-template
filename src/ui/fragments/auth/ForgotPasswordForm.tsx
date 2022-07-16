@@ -1,9 +1,9 @@
 import {Form, FormInstance, Input} from "antd";
 import {MobileOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
-import {AsyncButton} from "../form/AsyncButton";
+import {AsyncButton} from "../../form/AsyncButton";
 import {useLaravelForm} from "@/hooks/useLaravelForm";
-import {PasswordInput} from "../form/PasswordInput";
+import {PasswordInput} from "../../form/PasswordInput";
 import {api} from "@/lib/api";
 import {FC, ReactNode} from "react";
 
