@@ -53,7 +53,7 @@ export const ChangePasswordForm : FC<ChangePasswordFormProps> = (props) => {
         }]}>
             <PasswordInput />
         </Form.Item>
-        <Form.Item label={'新密码'} {...laravel.field('new_password')}
+        <Form.Item label={'新密码'} {...laravel.field('password')}
                    rules={[
                        {
                            required : true,
@@ -63,7 +63,7 @@ export const ChangePasswordForm : FC<ChangePasswordFormProps> = (props) => {
         >
             <PasswordInput />
         </Form.Item>
-        <Form.Item label={'确认新密码'} {...laravel.field('new_password_confirmation')}
+        <Form.Item label={'确认新密码'} {...laravel.field('password_confirmation')}
                    dependencies={['new_password']}
                    rules={[{
                        required : true,
