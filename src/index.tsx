@@ -1,5 +1,5 @@
 import './index.global.scss';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter,} from "react-router-dom";
 import {SWRConfig} from "swr";
@@ -22,7 +22,7 @@ function getRoot() {
 
 }
 
-function render(which: React.ReactChild) {
+function render(which: ReactElement) {
     ReactDOM.createRoot(getRoot()).render(which);
 }
 import zhCN from 'antd/lib/locale/zh_CN';
@@ -32,7 +32,7 @@ function main() {
         <BrowserRouter>
             <SWRConfig value={{
                 fetcher: api,
-                revalidateIfStale: false,
+                revalidateIfStale: true,
                 refreshWhenHidden: false,
                 revalidateOnFocus: false,
                 shouldRetryOnError: false,

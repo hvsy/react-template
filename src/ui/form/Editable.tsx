@@ -31,7 +31,7 @@ export const Editable : FC<EditableProps>= (props) => {
             }}/>
         }else if(type === 'number'){
             content = <InputNumber value={currentValue} onChange={(e) => {
-                setCurrentValue(e);
+                e && setCurrentValue(e);
             }}/>
         }
     }else{

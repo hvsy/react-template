@@ -18,7 +18,6 @@ body{
 
 
 
-@import "~antd/dist/antd.css";
 
 svg { vertical-align: baseline; }
 
@@ -27,12 +26,12 @@ svg { vertical-align: baseline; }
     margin-right: 10px;
   }
 }
-button.ant-btn-primary{
-  color: #fff;
-  border-color: #1890ff;
+button.ant-btn-primary {
+  //color: #fff;
+  //border-color: #1890ff;
   background: #1890ff;
-  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
-  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+  //text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  //box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
 }
 
 button.ant-switch{

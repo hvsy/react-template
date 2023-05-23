@@ -1,6 +1,7 @@
-import {FC, ReactNode, useMemo, useState} from "react";
-import _ from "lodash";
+import {FC, ReactNode, useId, useState} from "react";
 import {Button, ButtonProps} from "antd";
+import { flushSync } from "react-dom";
+import {useAsyncClick} from "@/hooks/useAsyncClick";
 
 export type AsyncButtonProps =  Omit<ButtonProps,'onClick'> & {
     onClick ?: ()=>(Promise<any>|void);
@@ -8,21 +9,9 @@ export type AsyncButtonProps =  Omit<ButtonProps,'onClick'> & {
 } ;
 
 export const AsyncButton : FC<AsyncButtonProps> = (props)=>{
-    const {children,onClick,...others} = props;
-    const [loading,setLoading] = useState(false);
-    return <Button {...others} onClick={async(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if(loading) return;
-        setLoading(true);
-        try{
-            if(onClick){
-                await onClick();
-            }
-        }finally{
-            setLoading(false);
-        }
-    }} loading={loading}>
+    const {children,onClick,loading : tLoading,...others} = props;
+    const [loading,click]  = useAsyncClick(onClick);
+    return <Button {...others} loading={loading} onClick={click}>
         {children}
     </Button>;
-}
+};

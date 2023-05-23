@@ -26,7 +26,7 @@ AxiosInstance.interceptors.response.use(r=>r, (error) => {
     }
     return Promise.reject(error);
 });
-export function api<T>(config : AxiosRequestConfig & {authRedirect ?: boolean}){
+export function api<T = any>(config : AxiosRequestConfig & {authRedirect ?: boolean}){
     return AxiosInstance.request<T>(config).then(r=>r.data);
 }
 
