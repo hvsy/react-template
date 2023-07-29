@@ -31,6 +31,7 @@ const EnvFile = path.resolve(__dirname, ['.env'].filter(Boolean).join('.'));
 console.log(EnvFile);
 require('dotenv').config({
     path: EnvFile,
+    override : true,
 });
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
