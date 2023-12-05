@@ -10,17 +10,24 @@ function getMixPusherHost(){
     }
     return location.hostname;
 }
+function getMixPusherPort(){
+    if(process.env.CLIENT_PUSHER_PORT){
+        return process.env.CLIENT_PUSHER_PORT;
+    }
+    return location.port;
+}
+const targetHost = getMixPusherHost();
+const targetPort = getMixPusherPort();
 
 export const Echo = new LaravelEcho({
     broadcaster: 'pusher',
     key: process.env.PUSHER_APP_KEY,
-    wsHost: getMixPusherHost(),
-    wsPort: process.env.CLIENT_PUSHER_PORT,
-    wssPort: process.env.CLIENT_PUSHER_PORT,
-    cluster: process.env.PUSHER_APP_CLUSTER || 'mt1',
-    // wssPort: process.env.PUSHER_PORT || 6001,
+    wsHost: targetHost,
     forceTLS: false,
-    wsPath : '/ws',
+    wsPort: targetPort,
+    wssPort: targetPort,
+    cluster: process.env.PUSHER_APP_CLUSTER || 'mt1',
+    wsPath : parseInt(location.port) === parseInt(targetPort) ?  '/ws' : (process.env.PUSH_PATH || undefined),
     encrypted: true,
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
