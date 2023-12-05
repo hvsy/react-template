@@ -27,6 +27,18 @@ const TerserPlugin = require("terser-webpack-plugin");
 const styleLoader = isDev ? require.resolve('style-loader') : MiniCssExtractPlugin.loader;
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+
+const fs  = require("fs");
+let ParentDirectory = path.resolve(__dirname + '/../');
+let ParentEnvFile = ParentDirectory +'/.env';
+if(fs.existsSync(ParentEnvFile) && fs.existsSync(ParentDirectory + '/artisan')){
+    require('dotenv').config({
+        path: ParentEnvFile,
+    });
+}else{
+    ParentEnvFile = null;
+}
+
 const EnvFile = path.resolve(__dirname, ['.env'].filter(Boolean).join('.'));
 console.log(EnvFile);
 require('dotenv').config({
@@ -441,7 +453,8 @@ module.exports = {
             filename: '[name].[contenthash].css',
         }) : false,
         new Dotenv({
-            path: EnvFile,
+            path : EnvFile,
+            defaults : ParentEnvFile ? ParentEnvFile : false,
         }),
         new CleanWebpackPlugin({}),
         new HtmlWebpackPlugin(isDev ? {
