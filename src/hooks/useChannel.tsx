@@ -1,12 +1,13 @@
 import {useEffect} from "react";
 import {Echo} from "@lib/echo";
+import {PresenceChannel} from "laravel-echo";
 
-export function useChannel(name : string,callback : Function,error :Function){
+export type ChannelCallback = (channel : PresenceChannel)=>void;
+export function useChannel(name : string,callback : ChannelCallback){
     useEffect(() => {
         try{
             const channel = Echo.join(name);
-            channel.error(error);
-            channel.notification(callback);
+            callback(channel);
         }catch(e){
             console.error(e);
             return () => {
@@ -14,7 +15,6 @@ export function useChannel(name : string,callback : Function,error :Function){
             };
         }
         return () => {
-            console.log(`leave : ${name}`);
             Echo.leave(name)
         }
     },[name]);
